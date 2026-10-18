@@ -7,7 +7,8 @@
 [![JavaScript](https://img.shields.io/badge/Pure-JavaScript-EA3943?style=for-the-badge)](#)
 [![No Dependencies](https://img.shields.io/badge/Dependencies-Zero-FFC107?style=for-the-badge)](#)
 [![Live Demo](https://img.shields.io/badge/Live-Demo-12C4F0?style=for-the-badge)](https://salahbadi19.github.io/BADI-CHARTS/)
-[![Telegram](https://img.shields.io/badge/Telegram-Channel-26A5E4?style=for-the-badge&logo=telegram)](https://t.me/qxchart)
+[![Telegram Channel](https://img.shields.io/badge/Telegram-Channel-26A5E4?style=for-the-badge&logo=telegram)](https://t.me/qxchart)
+[![Telegram Developer](https://img.shields.io/badge/Telegram-Developer-26A5E4?style=for-the-badge&logo=telegram)](https://t.me/qxzero1)
 
 > BADI-CHARTS is a complete, production-ready trading chart engine built entirely in vanilla JavaScript. No frameworks, no build tools, no external dependencies — just open the file and it works. Designed to be embedded in any web application as a standalone library.
 
@@ -19,8 +20,19 @@
 |------|-----|
 | **🚀 Live Demo** | [https://salahbadi19.github.io/BADI-CHARTS/](https://salahbadi19.github.io/BADI-CHARTS/) |
 | **💬 Telegram Channel** | [https://t.me/qxchart](https://t.me/qxchart) |
+| **👨‍💻 Telegram Developer** | [https://t.me/qxzero1](https://t.me/qxzero1) |
 | **📦 GitHub Repo** | [https://github.com/salahbadi19/BADI-CHARTS](https://github.com/salahbadi19/BADI-CHARTS) |
-| **🌐 CDN (jsDelivr)** | `https://cdn.jsdelivr.net/gh/salahbadi19/BADI-CHARTS@main/dist/badi-charts.js` |
+| **🌐 CDN (jsDelivr)** | `https://cdn.jsdelivr.net/gh/salahbadi19/BADI-CHARTS@v1.0.1/dist/badi-charts.js` |
+
+---
+
+## 👨‍💻 Developer
+
+| | |
+|---|---|
+| **GitHub** | [@salahbadi19](https://github.com/salahbadi19) |
+| **Telegram (Developer)** | [@qxzero1](https://t.me/qxzero1) |
+| **Telegram (Channel)** | [@qxchart](https://t.me/qxchart) |
 
 ---
 
