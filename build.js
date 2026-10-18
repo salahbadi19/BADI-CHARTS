@@ -220,7 +220,16 @@ global.BadiCharts = {
   create: function(selector, opts) {
     var el = typeof selector === 'string' ? document.querySelector(selector) : selector;
     if (!el) { console.error('BadiCharts: container not found:', selector); return null; }
-    var engine = new ChartEngine(el, opts || {});
+    var options = opts || {};
+    // When using CDN embed via BadiCharts.create(), default to:
+    //   - NO toolbar (clean embedded chart)
+    //   - NO status bar
+    //   - autoData = true (generate demo data so the chart isn't empty)
+    // User can override: BadiCharts.create('#el', { toolbar: true })
+    if (options.toolbar === undefined) options.toolbar = false;
+    if (options.statusBar === undefined) options.statusBar = false;
+    if (options.autoData === undefined) options.autoData = true;
+    var engine = new ChartEngine(el, options);
     engine.init();
     return engine;
   },
@@ -246,6 +255,10 @@ if (typeof document !== 'undefined') {
       var opts = {};
       if (auto.getAttribute('data-symbol')) opts.symbol = auto.getAttribute('data-symbol');
       if (auto.getAttribute('data-theme')) opts.theme = auto.getAttribute('data-theme');
+      // Auto-init via data attribute: show toolbar + statusbar (full demo mode)
+      opts.toolbar = true;
+      opts.statusBar = true;
+      opts.autoData = true;
       global.BadiCharts.create(auto, opts);
     }
   });

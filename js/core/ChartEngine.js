@@ -55,6 +55,13 @@ export class ChartEngine {
         this.container = container;
         this.symbol = options.symbol || 'BTCUSDT';
         this.options = options;
+        // Whether to show the toolbar (default: true, but false when created
+        // via CDN embed for a cleaner embedded chart).
+        this._showToolbar = options.toolbar !== false;
+        this._showStatusBar = options.statusBar !== false;
+        // Whether to auto-generate demo data on init (default: true for
+        // standalone demo, false when used as embedded library).
+        this._autoData = options.autoData !== false;
 
         this.themeManager = new ThemeManager(options.theme || 'dark');
         this.theme = this.themeManager.get();
@@ -63,10 +70,12 @@ export class ChartEngine {
         this.root = DomUtils.el('div', { class: 'ac-root' });
         container.appendChild(this.root);
         this.toolbarContainer = DomUtils.el('div', { class: 'ac-toolbar-container' });
+        if (!this._showToolbar) this.toolbarContainer.style.display = 'none';
         this.chartArea = DomUtils.el('div', { class: 'ac-chart-area' });
         this.paneContainer = DomUtils.el('div', { class: 'ac-pane-container' });
         this.overlayContainer = DomUtils.el('div', { class: 'ac-overlay-container' });
         this.statusContainer = DomUtils.el('div', { class: 'ac-status-container' });
+        if (!this._showStatusBar) this.statusContainer.style.display = 'none';
         this.chartArea.appendChild(this.paneContainer);
         this.chartArea.appendChild(this.overlayContainer);
         this.root.append(this.toolbarContainer, this.chartArea, this.statusContainer);
@@ -176,15 +185,16 @@ export class ChartEngine {
     }
 
     init() {
-        this.dataFeed.generateHistory(1500);
-        this.viewport.barSpacing = 8;
-        this.viewport.rightOffset = 10;
-        this.viewport.scrollToRight(this.dataManager.size);
-        this.viewport.updatePriceRange(this.dataManager);
-        this.statusBar.setBars(this.dataManager.size);
-        this.statusBar.setDrawings(0);
-        // Add a default volume indicator pane
-        this.indicatorManager.add('Volume', {});
+        if (this._autoData) {
+            this.dataFeed.generateHistory(1500);
+            this.viewport.barSpacing = 8;
+            this.viewport.rightOffset = 10;
+            this.viewport.scrollToRight(this.dataManager.size);
+            this.viewport.updatePriceRange(this.dataManager);
+            this.statusBar.setBars(this.dataManager.size);
+            this.statusBar.setDrawings(0);
+            this.indicatorManager.add('Volume', {});
+        }
         this.requestRender();
     }
 
