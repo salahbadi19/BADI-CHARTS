@@ -965,26 +965,26 @@ export class ChartEngine {
         else if (pct > 0.2) timerColor = '#FFC107';
         else timerColor = theme.downColor;
 
-        // Timer badge — positioned INSIDE the price scale, just LEFT of
-        // the price tag, at the same Y. Uses the same font size as the
-        // price axis labels so it matches visually.
+        // Timer badge — positioned JUST OUTSIDE the price scale (to the LEFT
+        // of the axis), below the price tag. This keeps the axis clean while
+        // still showing the countdown near the price.
         const tagFont = this.priceScale.fontSize;
         ctx.save();
         ctx.font = `bold ${tagFont}px 'JetBrains Mono', monospace`;
         const m = ctx.measureText(timerLabel);
-        const timerH = tagFont + 4;  // same height as price tag
-        const timerW = Math.min(m.width + 8, priceScaleW * 0.6); // fit inside axis
-        // Position: just left of the price tag, inside the price scale area.
+        const timerH = tagFont + 4;
+        const timerW = m.width + 8;
+        // Position: just LEFT of the price axis (outside it), below the price tag.
         const tagX = canvasW - priceScaleW;
-        const tx = tagX + priceScaleW - timerW - 4;  // right-aligned inside axis
-        const ty = absY - timerH / 2;
+        const tx = tagX - timerW - 2;  // left of the axis
+        const ty = absY + 2;            // just below the price tag (same Y + offset down)
 
         ctx.fillStyle = timerColor;
         ctx.fillRect(tx, ty, timerW, timerH);
         ctx.fillStyle = '#fff';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.fillText(timerLabel, tx + timerW / 2, absY);
+        ctx.fillText(timerLabel, tx + timerW / 2, ty + timerH / 2);
         ctx.restore();
 
         // Request a re-render every second so the timer updates.
