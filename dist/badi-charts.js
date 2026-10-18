@@ -4303,7 +4303,11 @@ class ChartEngine {
             this.viewport.updatePriceRange(this.dataManager);
             this.statusBar.setBars(this.dataManager.size);
             this.statusBar.setDrawings(0);
-            this.indicatorManager.add('Volume', {});
+            // Only add Volume indicator if none exist yet (prevent duplicates)
+            const hasVolume = this.indicatorManager.indicators.some(i => i.name === 'Volume');
+            if (!hasVolume) {
+                this.indicatorManager.add('Volume', {});
+            }
         }
         this.requestRender();
     }
@@ -14624,9 +14628,10 @@ if (typeof document !== 'undefined') {
       var opts = {};
       if (auto.getAttribute('data-symbol')) opts.symbol = auto.getAttribute('data-symbol');
       if (auto.getAttribute('data-theme')) opts.theme = auto.getAttribute('data-theme');
-      // Auto-init via data attribute: show toolbar + statusbar (full demo mode)
-      opts.toolbar = true;
-      opts.statusBar = true;
+      // Auto-init via CDN bundle: NO toolbar, NO status bar (clean embedded chart).
+      // User can pass { toolbar: true } via BadiCharts.create() to enable.
+      opts.toolbar = false;
+      opts.statusBar = false;
       opts.autoData = true;
       global.BadiCharts.create(auto, opts);
     }

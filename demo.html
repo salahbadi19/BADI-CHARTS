@@ -4,19 +4,23 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BADI-CHARTS — Live Demo</title>
-<!-- BADI-CHARTS CSS (from CDN via jsDelivr) -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/salahbadi19/BADI-CHARTS@main/dist/badi-charts.css">
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/chart.css">
+<link rel="stylesheet" href="css/toolbar.css">
+<link rel="stylesheet" href="css/themes.css">
+<link rel="stylesheet" href="css/colorpicker.css">
+<link rel="stylesheet" href="css/indicator-modal.css">
+<link rel="stylesheet" href="css/chart-settings-modal.css">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html, body { width: 100%; height: 100%; overflow: hidden; }
-#chart-root { width: 100vw; height: 100vh; }
-</style>
 </head>
 <body>
-<div id="chart-root" data-badi-charts data-symbol="BTCUSDT" data-theme="dark"></div>
-
-<!-- BADI-CHARTS JS (from CDN via jsDelivr) -->
-<script src="https://cdn.jsdelivr.net/gh/salahbadi19/BADI-CHARTS@main/dist/badi-charts.js"></script>
+<div id="chart-root"></div>
+<script>
+window.__errors = [];
+window.addEventListener('error', (e) => {
+    window.__errors.push({ message: e.message, source: e.filename, line: e.lineno, col: e.colno });
+});
+</script>
+<script type="module" src="js/app.js"></script>
 </body>
 </html>

@@ -193,7 +193,11 @@ export class ChartEngine {
             this.viewport.updatePriceRange(this.dataManager);
             this.statusBar.setBars(this.dataManager.size);
             this.statusBar.setDrawings(0);
-            this.indicatorManager.add('Volume', {});
+            // Only add Volume indicator if none exist yet (prevent duplicates)
+            const hasVolume = this.indicatorManager.indicators.some(i => i.name === 'Volume');
+            if (!hasVolume) {
+                this.indicatorManager.add('Volume', {});
+            }
         }
         this.requestRender();
     }
