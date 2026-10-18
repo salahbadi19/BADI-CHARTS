@@ -6,7 +6,7 @@
 
 **A Professional Trading Chart Library Built in Pure JavaScript**
 
-[![BADI-CHARTS](https://img.shields.io/badge/BADI--CHARTS-v1.0.7-12C4F0?style=for-the-badge&labelColor=0e1117)](#)
+[![BADI-CHARTS](https://img.shields.io/badge/BADI--CHARTS-v1.0.8-12C4F0?style=for-the-badge&labelColor=0e1117)](#)
 [![License: MIT](https://img.shields.io/badge/License-MIT-16C784?style=for-the-badge)](#)
 [![JavaScript](https://img.shields.io/badge/Pure-JavaScript-EA3943?style=for-the-badge)](#)
 [![No Dependencies](https://img.shields.io/badge/Dependencies-Zero-FFC107?style=for-the-badge)](#)
@@ -28,7 +28,7 @@
 | **💬 Telegram Channel** | [https://t.me/qxchart](https://t.me/qxchart) |
 | **👨‍💻 Telegram Developer** | [https://t.me/qxzero1](https://t.me/qxzero1) |
 | **📦 GitHub Repo** | [https://github.com/salahbadi19/BADI-CHARTS](https://github.com/salahbadi19/BADI-CHARTS) |
-| **🌐 CDN (jsDelivr)** | `https://cdn.jsdelivr.net/gh/salahbadi19/BADI-CHARTS@v1.0.7/dist/badi-charts.js` |
+| **🌐 CDN (jsDelivr)** | `https://cdn.jsdelivr.net/gh/salahbadi19/BADI-CHARTS@v1.0.8/dist/badi-charts.js` |
 
 ---
 
@@ -130,14 +130,14 @@ Just add these 3 lines to any HTML page — no download, no build step:
 <html>
 <head>
   <!-- 1. Add the CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/salahbadi19/BADI-CHARTS@v1.0.7/dist/badi-charts.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/salahbadi19/BADI-CHARTS@v1.0.8/dist/badi-charts.css">
 </head>
 <body>
   <!-- 2. Add a container -->
   <div id="chart-root" style="width:100vw;height:100vh"></div>
 
   <!-- 3. Add the JS — chart auto-initializes! -->
-  <script src="https://cdn.jsdelivr.net/gh/salahbadi19/BADI-CHARTS@v1.0.7/dist/badi-charts.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/salahbadi19/BADI-CHARTS@v1.0.8/dist/badi-charts.js"></script>
 </body>
 </html>
 ```
@@ -150,12 +150,12 @@ That's it! The chart auto-initializes with demo data when the page loads.
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/salahbadi19/BADI-CHARTS@v1.0.7/dist/badi-charts.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/salahbadi19/BADI-CHARTS@v1.0.8/dist/badi-charts.css">
 </head>
 <body>
   <div id="my-chart" style="width:100%;height:500px"></div>
 
-  <script src="https://cdn.jsdelivr.net/gh/salahbadi19/BADI-CHARTS@v1.0.7/dist/badi-charts.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/salahbadi19/BADI-CHARTS@v1.0.8/dist/badi-charts.js"></script>
   <script>
     // Create chart manually with custom options
     const chart = BadiCharts.create('#my-chart', {
@@ -209,10 +209,10 @@ python3 -m http.server 8000
 
 | File | CDN URL |
 |------|---------|
-| **JavaScript** | `https://cdn.jsdelivr.net/gh/salahbadi19/BADI-CHARTS@v1.0.7/dist/badi-charts.js` |
-| **CSS** | `https://cdn.jsdelivr.net/gh/salahbadi19/BADI-CHARTS@v1.0.7/dist/badi-charts.css` |
+| **JavaScript** | `https://cdn.jsdelivr.net/gh/salahbadi19/BADI-CHARTS@v1.0.8/dist/badi-charts.js` |
+| **CSS** | `https://cdn.jsdelivr.net/gh/salahbadi19/BADI-CHARTS@v1.0.8/dist/badi-charts.css` |
 
-> 💡 **Tip:** Always use the latest stable tag (currently @v1.0.7) to avoid CDN cache issues with @main.
+> 💡 **Tip:** Always use the latest stable tag (currently @v1.0.8) to avoid CDN cache issues with @main.
 
 ---
 
@@ -224,12 +224,12 @@ This example connects directly to **Binance's public WebSocket API** to stream r
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/salahbadi19/BADI-CHARTS@v1.0.7/dist/badi-charts.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/salahbadi19/BADI-CHARTS@v1.0.8/dist/badi-charts.css">
 </head>
 <body>
   <div id="chart" style="width:100vw;height:100vh"></div>
 
-  <script src="https://cdn.jsdelivr.net/gh/salahbadi19/BADI-CHARTS@v1.0.7/dist/badi-charts.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/salahbadi19/BADI-CHARTS@v1.0.8/dist/badi-charts.js"></script>
   <script>
     // 1. Create the chart (no toolbar, clean embedded mode)
     const chart = BadiCharts.create('#chart', {

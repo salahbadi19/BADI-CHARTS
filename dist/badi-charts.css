@@ -478,22 +478,21 @@ select { font-family: inherit; }
 /* Responsive */
 @media (max-width: 768px) {
     :root { --ac-toolbar-h: 40px; --ac-statusbar-h: 22px; }
-    .ac-legend { font-size: 10px; top: 4px; left: 4px; padding: 4px 6px; max-width: calc(100vw - 60px); }
-    .ac-legend-symbol { font-size: 11px; }
-    .ac-legend-price { font-size: 12px; }
-    .ac-legend-ohlcv { gap: 3px 6px; font-size: 9px; }
+    /* On tablets/phones: hide symbol, price, change% — keep only OHLCV candle info */
+    .ac-legend { font-size: 10px; top: 4px; left: 4px; padding: 4px 6px; max-width: calc(100vw - 60px); gap: 2px; }
+    .ac-legend-symbol { display: none; }
+    .ac-legend-price { display: none; }
+    .ac-legend-change { display: none; }
+    .ac-legend-ohlcv { gap: 3px 8px; font-size: 10px; margin-top: 0; }
     .ac-tooltip { font-size: 10px; min-width: 120px; padding: 6px 8px; }
     .ac-statusbar-left, .ac-statusbar-right { gap: 8px; }
     .ac-settings-card { width: 240px; }
 }
 
-/* Very small phones — stack OHLCV in two compact rows */
+/* Very small phones — even more compact OHLCV */
 @media (max-width: 480px) {
     .ac-legend { top: 3px; left: 3px; padding: 3px 5px; max-width: calc(100vw - 50px); gap: 1px; }
-    .ac-legend-symbol { font-size: 10px; margin-bottom: 0; }
-    .ac-legend-price { font-size: 11px; }
-    .ac-legend-change { font-size: 9px; }
-    .ac-legend-ohlcv { gap: 1px 6px; font-size: 8.5px; }
+    .ac-legend-ohlcv { gap: 2px 6px; font-size: 9px; }
     .ac-statusbar-left span:nth-child(3),
     .ac-statusbar-right span:nth-child(2) { display: none; }
     .ac-brand-name { display: none; }
