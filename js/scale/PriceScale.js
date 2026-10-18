@@ -154,32 +154,24 @@ export class PriceScale {
         ctx.lineTo(chartW, y + 0.5);
         ctx.stroke();
 
-        // Price tag on the scale — fits within the price scale width.
+        // Price tag — fills the ENTIRE price scale width (same as the
+        // tick labels), so it looks like it's "inside" the axis, not
+        // floating above it. Uses the SAME font size as the tick labels.
         const x = viewport.width - this.width;
-        // Use compact format on mobile so the tag text is shorter and the
-        // font can stay large (readable).
         const label = this._isMobile
             ? this._compactPrice(last.close)
             : MathUtils.formatPrice(last.close);
-        let tagFontPx = this.fontSize + 1;
-        ctx.font = `bold ${tagFontPx}px ${this.fontFamily}`;
-        const padX = this._isMobile ? 2 : 4;
-        const tagH = tagFontPx + 4;
-        const tagW = this.width - padX * 2;
-        let labelMetrics = ctx.measureText(label);
-        // Shrink font until the label fits within tagW.
-        while (labelMetrics.width > tagW - 4 && tagFontPx > 6) {
-            tagFontPx--;
-            ctx.font = `bold ${tagFontPx}px ${this.fontFamily}`;
-            labelMetrics = ctx.measureText(label);
-        }
-        // Tag background
+        // Use the same font size as the tick labels for consistency.
+        ctx.font = `bold ${this.fontSize}px ${this.fontFamily}`;
+        const tagH = this.fontSize + 4;  // same height as tick label row
+        const tagW = this.width;         // full axis width (0 to this.width)
+        // Tag background — covers the full axis width at this Y
         ctx.fillStyle = color;
-        ctx.fillRect(x + padX, y - tagH / 2, tagW, tagH);
-        // Label text
+        ctx.fillRect(x, y - tagH / 2, tagW, tagH);
+        // Label text — right-aligned to match the tick labels
         ctx.fillStyle = theme.lastPriceTagText || '#fff';
-        ctx.textAlign = 'center';
+        ctx.textAlign = 'right';
         ctx.textBaseline = 'middle';
-        ctx.fillText(label, x + padX + tagW / 2, y);
+        ctx.fillText(label, x + this.width - this._isMobile ? 4 : 8, y);
     }
 }

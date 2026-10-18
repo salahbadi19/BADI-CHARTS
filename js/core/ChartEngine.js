@@ -904,28 +904,26 @@ export class ChartEngine {
         const vp = this.viewport;
         const mainRegion = regions.find(r => r.id === 'main');
         if (!mainRegion) return;
-        // The price Y is relative to the main region's top
         const yInMain = vp.priceToY(last.close);
         const absY = mainRegion.rect.y + yInMain;
         const canvasW = this.canvas.cssWidth;
         const isUp = last.close >= last.open;
         const color = isUp ? theme.upColor : theme.downColor;
 
-        ctx.save();
-
-        // Price tag on the right (in the price scale area, at the main region's Y)
+        // Price tag — fills the ENTIRE price scale width (inside the axis,
+        // not floating above it). Uses the same font size as the tick labels.
         const tagX = canvasW - priceScaleW;
         const label = MathUtils.formatPrice(last.close);
-        ctx.font = "bold 11px 'JetBrains Mono', monospace";
-        const m = ctx.measureText(label);
-        const tagW = m.width + 12;
-        const tagH = 18;
+        const tagFont = this.priceScale.fontSize;
+        ctx.font = `bold ${tagFont}px 'JetBrains Mono', monospace`;
+        const tagH = tagFont + 4;     // same height as tick label row
+        const tagW = priceScaleW;    // full axis width
         ctx.fillStyle = color;
         ctx.fillRect(tagX, absY - tagH / 2, tagW, tagH);
         ctx.fillStyle = theme.lastPriceTagText;
-        ctx.textAlign = 'center';
+        ctx.textAlign = 'right';
         ctx.textBaseline = 'middle';
-        ctx.fillText(label, tagX + tagW / 2, absY);
+        ctx.fillText(label, tagX + tagW - 8, absY);
         ctx.restore();
     }
 
@@ -950,42 +948,39 @@ export class ChartEngine {
         const yInMain = vp.priceToY(last.close);
         const absY = mainRegion.rect.y + yInMain;
 
-        // Compute the time remaining until the current candle closes.
-        // The candle's interval is dm.interval (ms). The candle started
-        // at `last.time` and closes at `last.time + interval`.
-        const interval = dm.interval || 60_000; // default 1 minute
+        const interval = dm.interval || 60_000;
         const candleCloseTime = last.time + interval;
         const now = Date.now();
         let remaining = candleCloseTime - now;
-        if (remaining < 0) remaining = 0; // candle already closed, waiting for next
+        if (remaining < 0) remaining = 0;
 
-        // Format as MM:SS
         const totalSec = Math.floor(remaining / 1000);
         const mm = String(Math.floor(totalSec / 60)).padStart(2, '0');
         const ss = String(totalSec % 60).padStart(2, '0');
         const timerLabel = mm + ':' + ss;
 
-        // Determine the color: green if > 50% remaining, yellow if 20-50%, red if < 20%.
         const pct = remaining / interval;
         let timerColor;
         if (pct > 0.5) timerColor = theme.upColor;
         else if (pct > 0.2) timerColor = '#FFC107';
         else timerColor = theme.downColor;
 
+        // Timer badge — positioned INSIDE the price scale, just LEFT of
+        // the price tag, at the same Y. Uses the same font size as the
+        // price axis labels so it matches visually.
+        const tagFont = this.priceScale.fontSize;
         ctx.save();
-        ctx.font = "bold 10px 'JetBrains Mono', monospace";
+        ctx.font = `bold ${tagFont}px 'JetBrains Mono', monospace`;
         const m = ctx.measureText(timerLabel);
-        const timerW = m.width + 10;
-        const timerH = 14;
-        // Position just to the LEFT of the price tag (which is at canvasW - priceScaleW).
+        const timerH = tagFont + 4;  // same height as price tag
+        const timerW = Math.min(m.width + 8, priceScaleW * 0.6); // fit inside axis
+        // Position: just left of the price tag, inside the price scale area.
         const tagX = canvasW - priceScaleW;
-        const tx = tagX - timerW - 2;
+        const tx = tagX + priceScaleW - timerW - 4;  // right-aligned inside axis
         const ty = absY - timerH / 2;
 
-        // Background
         ctx.fillStyle = timerColor;
         ctx.fillRect(tx, ty, timerW, timerH);
-        // Text
         ctx.fillStyle = '#fff';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
@@ -1042,22 +1037,23 @@ export class ChartEngine {
         }
         ctx.setLineDash([]);
 
-        // Price label on the right axis (only if cursor is in main region)
+        // Price label on the right axis — fills the FULL axis width,
+        // same font size as tick labels (inside the axis, not floating above).
         if (cursorYInMain >= 0 && cursorYInMain < mainRegion.rect.h) {
             const price = vp.yToPrice(cursorYInMain);
             const label = MathUtils.formatPrice(price);
-            ctx.font = "bold 11px 'JetBrains Mono', monospace";
-            const m = ctx.measureText(label);
-            const tagW = m.width + 14;
-            const tagH = 18;
+            const tagFont = this.priceScale.fontSize;
+            ctx.font = `bold ${tagFont}px 'JetBrains Mono', monospace`;
+            const tagH = tagFont + 4;
+            const tagW = priceScaleW;  // full axis width
             const tx = canvasW - priceScaleW;
             const ty = this.crosshair.y - tagH / 2;
             ctx.fillStyle = theme.crosshairLabelBg;
             ctx.fillRect(tx, ty, tagW, tagH);
             ctx.fillStyle = theme.crosshairLabelText;
-            ctx.textAlign = 'center';
+            ctx.textAlign = 'right';
             ctx.textBaseline = 'middle';
-            ctx.fillText(label, tx + tagW / 2, ty + tagH / 2);
+            ctx.fillText(label, tx + tagW - 8, this.crosshair.y);
         }
 
         // Time label on the time axis strip — skip when cursor is on the price axis
