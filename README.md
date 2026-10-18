@@ -6,8 +6,20 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-16C784?style=for-the-badge)](#)
 [![JavaScript](https://img.shields.io/badge/Pure-JavaScript-EA3943?style=for-the-badge)](#)
 [![No Dependencies](https://img.shields.io/badge/Dependencies-Zero-FFC107?style=for-the-badge)](#)
+[![Live Demo](https://img.shields.io/badge/Live-Demo-12C4F0?style=for-the-badge)](https://salahbadi19.github.io/BADI-CHARTS/)
+[![Telegram](https://img.shields.io/badge/Telegram-Channel-26A5E4?style=for-the-badge&logo=telegram)](https://t.me/qxchart)
 
 > BADI-CHARTS is a complete, production-ready trading chart engine built entirely in vanilla JavaScript. No frameworks, no build tools, no external dependencies — just open the file and it works. Designed to be embedded in any web application as a standalone library.
+
+---
+
+## 🔗 Links
+
+| Link | URL |
+|------|-----|
+| **🚀 Live Demo** | [https://salahbadi19.github.io/BADI-CHARTS/](https://salahbadi19.github.io/BADI-CHARTS/) |
+| **💬 Telegram Channel** | [https://t.me/qxchart](https://t.me/qxchart) |
+| **📦 GitHub Repo** | [https://github.com/salahbadi19/BADI-CHARTS](https://github.com/salahbadi19/BADI-CHARTS) |
 
 ---
 
