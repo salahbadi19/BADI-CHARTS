@@ -1,6 +1,6 @@
 {
   "name": "badi-charts",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Professional Trading Chart Library in Pure JavaScript",
   "main": "dist/badi-charts.js",
   "style": "dist/badi-charts.css",
