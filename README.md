@@ -6,7 +6,7 @@
 
 **A Professional Trading Chart Library Built in Pure JavaScript**
 
-[![BADI-CHARTS](https://img.shields.io/badge/BADI--CHARTS-v1.0-12C4F0?style=for-the-badge&labelColor=0e1117)](#)
+[![BADI-CHARTS](https://img.shields.io/badge/BADI--CHARTS-v1.0.6-12C4F0?style=for-the-badge&labelColor=0e1117)](#)
 [![License: MIT](https://img.shields.io/badge/License-MIT-16C784?style=for-the-badge)](#)
 [![JavaScript](https://img.shields.io/badge/Pure-JavaScript-EA3943?style=for-the-badge)](#)
 [![No Dependencies](https://img.shields.io/badge/Dependencies-Zero-FFC107?style=for-the-badge)](#)
@@ -28,7 +28,7 @@
 | **💬 Telegram Channel** | [https://t.me/qxchart](https://t.me/qxchart) |
 | **👨‍💻 Telegram Developer** | [https://t.me/qxzero1](https://t.me/qxzero1) |
 | **📦 GitHub Repo** | [https://github.com/salahbadi19/BADI-CHARTS](https://github.com/salahbadi19/BADI-CHARTS) |
-| **🌐 CDN (jsDelivr)** | `https://cdn.jsdelivr.net/gh/salahbadi19/BADI-CHARTS@v1.0.5/dist/badi-charts.js` |
+| **🌐 CDN (jsDelivr)** | `https://cdn.jsdelivr.net/gh/salahbadi19/BADI-CHARTS@v1.0.6/dist/badi-charts.js` |
 
 ---
 
@@ -82,7 +82,7 @@ BADI-CHARTS is a full-featured financial charting library that renders everythin
 - **Responsive price axis** — automatically narrows on mobile (38px) vs desktop (72px)
 - **Compact price formatting** on mobile (thousands separator, no decimals)
 - **Time axis** with adaptive formatting (minutes, hours, days, months)
-- **Countdown timer** — shows time remaining until the current candle closes, color-coded (green/yellow/red)
+- **Countdown timer** — shows time remaining until the current candle closes, color-coded (green/yellow/red), centered inside the price card just below the price tag
 - **Double-click to reset** — double-click price axis to auto-fit, time axis to reset zoom
 
 ### Indicators
@@ -130,14 +130,14 @@ Just add these 3 lines to any HTML page — no download, no build step:
 <html>
 <head>
   <!-- 1. Add the CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/salahbadi19/BADI-CHARTS@v1.0.5/dist/badi-charts.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/salahbadi19/BADI-CHARTS@v1.0.6/dist/badi-charts.css">
 </head>
 <body>
   <!-- 2. Add a container -->
   <div id="chart-root" style="width:100vw;height:100vh"></div>
 
   <!-- 3. Add the JS — chart auto-initializes! -->
-  <script src="https://cdn.jsdelivr.net/gh/salahbadi19/BADI-CHARTS@v1.0.5/dist/badi-charts.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/salahbadi19/BADI-CHARTS@v1.0.6/dist/badi-charts.js"></script>
 </body>
 </html>
 ```
@@ -150,12 +150,12 @@ That's it! The chart auto-initializes with demo data when the page loads.
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/salahbadi19/BADI-CHARTS@v1.0.5/dist/badi-charts.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/salahbadi19/BADI-CHARTS@v1.0.6/dist/badi-charts.css">
 </head>
 <body>
   <div id="my-chart" style="width:100%;height:500px"></div>
 
-  <script src="https://cdn.jsdelivr.net/gh/salahbadi19/BADI-CHARTS@v1.0.5/dist/badi-charts.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/salahbadi19/BADI-CHARTS@v1.0.6/dist/badi-charts.js"></script>
   <script>
     // Create chart manually with custom options
     const chart = BadiCharts.create('#my-chart', {
@@ -209,10 +209,10 @@ python3 -m http.server 8000
 
 | File | CDN URL |
 |------|---------|
-| **JavaScript** | `https://cdn.jsdelivr.net/gh/salahbadi19/BADI-CHARTS@v1.0.5/dist/badi-charts.js` |
-| **CSS** | `https://cdn.jsdelivr.net/gh/salahbadi19/BADI-CHARTS@v1.0.5/dist/badi-charts.css` |
+| **JavaScript** | `https://cdn.jsdelivr.net/gh/salahbadi19/BADI-CHARTS@v1.0.6/dist/badi-charts.js` |
+| **CSS** | `https://cdn.jsdelivr.net/gh/salahbadi19/BADI-CHARTS@v1.0.6/dist/badi-charts.css` |
 
-> 💡 **Tip:** Always use the latest stable tag (currently @v1.0.5) to avoid CDN cache issues with @main.
+> 💡 **Tip:** Always use the latest stable tag (currently @v1.0.6) to avoid CDN cache issues with @main.
 
 ---
 
@@ -224,12 +224,12 @@ This example connects directly to **Binance's public WebSocket API** to stream r
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/salahbadi19/BADI-CHARTS@v1.0.5/dist/badi-charts.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/salahbadi19/BADI-CHARTS@v1.0.6/dist/badi-charts.css">
 </head>
 <body>
   <div id="chart" style="width:100vw;height:100vh"></div>
 
-  <script src="https://cdn.jsdelivr.net/gh/salahbadi19/BADI-CHARTS@v1.0.5/dist/badi-charts.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/salahbadi19/BADI-CHARTS@v1.0.6/dist/badi-charts.js"></script>
   <script>
     // 1. Create the chart (no toolbar, clean embedded mode)
     const chart = BadiCharts.create('#chart', {
@@ -504,7 +504,7 @@ drawingToolRegistry.clear();
 | 7 | **Full color customization** | Body, wick, border, background — all customizable per candle direction. |
 | 8 | **Background support** | Image, video, or SVG as chart background with opacity control. |
 | 9 | **HSL color picker** | Full color picker for precise color selection. |
-| 10 | **Countdown timer** | Shows time remaining until candle close, color-coded. |
+| 10 | **Countdown timer** | Shows time remaining until candle close, color-coded, centered inside the price card just below the price tag. |
 | 11 | **Dark/Light themes** | Built-in with full color customization. |
 | 12 | **No build step** | No npm, webpack, or bundler needed. Just open the file. |
 | 13 | **Adaptive rendering** | Automatically switches rendering detail based on zoom level. |

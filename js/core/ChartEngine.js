@@ -941,9 +941,10 @@ export class ChartEngine {
      * The timer shows the time remaining until the current candle closes,
      * based on the data feed's interval (e.g. 1m → 60s countdown).
      *
-     * The timer is a small badge positioned just LEFT of the price tag,
+     * The timer is a small badge positioned just BELOW the price tag,
      * at the same Y as the current price line — so it visually "follows"
-     * the price as it moves up and down.
+     * the price as it moves up and down. The timer text is centered
+     * horizontally within the price scale width.
      */
     _drawCountdownTimer(ctx, regions, theme, priceScaleW, canvasW) {
         const dm = this.dataManager;
@@ -990,9 +991,9 @@ export class ChartEngine {
         ctx.fillStyle = timerColor;
         ctx.fillRect(tx, ty, timerW, timerH);
         ctx.fillStyle = '#fff';
-        ctx.textAlign = 'right';
+        ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.fillText(timerLabel, tx + timerW - 4, ty + timerH / 2);
+        ctx.fillText(timerLabel, tx + timerW / 2, ty + timerH / 2);
         ctx.restore();
 
         // Request a re-render every second so the timer updates.
