@@ -1,3 +1,7 @@
+<div align="center">
+
+<img src="assets/badicharts-logo.svg" alt="BADI-CHARTS" width="400">
+
 # BADI-CHARTS
 
 **A Professional Trading Chart Library Built in Pure JavaScript**
@@ -10,7 +14,9 @@
 [![Telegram Channel](https://img.shields.io/badge/Telegram-Channel-26A5E4?style=for-the-badge&logo=telegram)](https://t.me/qxchart)
 [![Telegram Developer](https://img.shields.io/badge/Telegram-Developer-26A5E4?style=for-the-badge&logo=telegram)](https://t.me/qxzero1)
 
-> BADI-CHARTS is a complete, production-ready trading chart engine built entirely in vanilla JavaScript. No frameworks, no build tools, no external dependencies — just open the file and it works. Designed to be embedded in any web application as a standalone library.
+<sub>BADI-CHARTS is a complete, production-ready trading chart engine built entirely in vanilla JavaScript. No frameworks, no build tools, no external dependencies — just open the file and it works. Designed to be embedded in any web application as a standalone library.</sub>
+
+</div>
 
 ---
 
