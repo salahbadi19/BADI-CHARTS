@@ -198,6 +198,112 @@ python3 -m http.server 8000
 
 ---
 
+## 📡 Real Data Example — Binance WebSocket (BTCUSDT)
+
+This example connects directly to **Binance's public WebSocket API** to stream real BTCUSDT 1-minute candles into BADI-CHARTS — no API key needed.
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/salahbadi19/BADI-CHARTS@main/dist/badi-charts.css">
+</head>
+<body>
+  <div id="chart" style="width:100vw;height:100vh"></div>
+
+  <script src="https://cdn.jsdelivr.net/gh/salahbadi19/BADI-CHARTS@main/dist/badi-charts.js"></script>
+  <script>
+    // 1. Create the chart (no toolbar, clean embedded mode)
+    const chart = BadiCharts.create('#chart', {
+      symbol: 'BTCUSDT',
+      theme: 'dark',
+      autoData: false  // ← important: don't generate fake data
+    });
+
+    // 2. Fetch historical 1m candles from Binance REST API
+    async function loadHistory() {
+      const url = 'https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=1m&limit=500';
+      const res = await fetch(url);
+      const raw = await res.json();
+
+      // Convert Binance format → BADI-CHARTS format
+      const candles = raw.map(k => ({
+        time: k[0],        // open time (ms)
+        open: parseFloat(k[1]),
+        high: parseFloat(k[2]),
+        low: parseFloat(k[3]),
+        close: parseFloat(k[4]),
+        volume: parseFloat(k[5])
+      }));
+
+      // Load into the chart
+      chart.dataManager.loadFrom(candles);
+      chart.viewport.barSpacing = 8;
+      chart.viewport.rightOffset = 10;
+      chart.viewport.scrollToRight(chart.dataManager.size);
+      chart.viewport.updatePriceRange(chart.dataManager);
+      chart.statusBar.setBars(chart.dataManager.size);
+      chart.indicatorManager.add('Volume', {});
+      chart.requestRender();
+
+      console.log('Loaded', candles.length, 'candles from Binance');
+    }
+
+    // 3. Connect to Binance WebSocket for live updates
+    function connectWebSocket() {
+      const ws = new WebSocket('wss://stream.binance.com:9443/ws/btcusdt@kline_1m');
+
+      ws.onmessage = (event) => {
+        const msg = JSON.parse(event.data);
+        if (!msg.k) return;  // not a kline update
+
+        const k = msg.k;
+        const candle = {
+          time: k.t,
+          open: parseFloat(k.o),
+          high: parseFloat(k.h),
+          low: parseFloat(k.l),
+          close: parseFloat(k.c),
+          volume: parseFloat(k.v)
+        };
+
+        // Update or append the candle in the chart
+        chart.dataManager.updateLast(candle.time, candle.open, candle.high,
+                                     candle.low, candle.close, candle.volume);
+        chart.viewport.updatePriceRange(chart.dataManager);
+        chart.requestRender();
+      };
+
+      ws.onclose = () => {
+        console.log('WebSocket disconnected — reconnecting in 3s...');
+        setTimeout(connectWebSocket, 3000);
+      };
+
+      console.log('WebSocket connected to Binance BTCUSDT 1m');
+    }
+
+    // 4. Start!
+    loadHistory().then(() => {
+      connectWebSocket();
+    });
+  </script>
+</body>
+</html>
+```
+
+### How it works:
+
+| Step | What happens |
+|------|-------------|
+| **1** | Create chart with `autoData: false` — no fake data |
+| **2** | Fetch 500 historical 1m candles from Binance REST API |
+| **3** | Connect to Binance WebSocket for real-time updates |
+| **4** | Each WebSocket tick updates the last candle live |
+
+> **No API key required!** Binance's public REST + WebSocket APIs are free and open. This example works immediately — just copy the HTML into a file and open it in a browser.
+
+---
+
 ## Chart Types
 
 ### Standard (10)
