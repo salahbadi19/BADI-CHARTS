@@ -910,14 +910,21 @@ export class ChartEngine {
         const isUp = last.close >= last.open;
         const color = isUp ? theme.upColor : theme.downColor;
 
-        // Price tag — fills the ENTIRE price scale width (inside the axis,
-        // not floating above it). Uses the same font size as the tick labels.
+        // Price tag — drawn INSIDE the clipped main region so it's bounded
+        // by the region rect (not floating outside). The tag fills the
+        // full price scale width and uses the same font as tick labels.
+        ctx.save();
+        // Clip to the main region so the tag stays inside.
+        ctx.beginPath();
+        ctx.rect(0, mainRegion.rect.y, canvasW, mainRegion.rect.h);
+        ctx.clip();
+
         const tagX = canvasW - priceScaleW;
         const label = MathUtils.formatPrice(last.close);
         const tagFont = this.priceScale.fontSize;
         ctx.font = `bold ${tagFont}px 'JetBrains Mono', monospace`;
-        const tagH = tagFont + 4;     // same height as tick label row
-        const tagW = priceScaleW;    // full axis width
+        const tagH = tagFont + 4;
+        const tagW = priceScaleW;
         ctx.fillStyle = color;
         ctx.fillRect(tagX, absY - tagH / 2, tagW, tagH);
         ctx.fillStyle = theme.lastPriceTagText;
