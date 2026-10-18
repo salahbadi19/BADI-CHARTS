@@ -5,7 +5,7 @@
  */
 import { MathUtils } from '../utils/MathUtils.js';
 
-const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const _CM_MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 export class Crosshair {
     constructor(options = {}) {
@@ -154,7 +154,7 @@ export class Crosshair {
             // intraday (>= 1 minute): HH:MM
             return hhmm;
         } else {
-            return d.getDate() + ' ' + MONTHS[d.getMonth()] + ' ' + d.getFullYear();
+            return d.getDate() + ' ' + _CM_MONTHS[d.getMonth()] + ' ' + d.getFullYear();
         }
     }
 }

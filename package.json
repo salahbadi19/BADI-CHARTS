@@ -1,0 +1,18 @@
+{
+  "name": "badi-charts",
+  "version": "1.0.0",
+  "description": "Professional Trading Chart Library in Pure JavaScript",
+  "main": "dist/badi-charts.js",
+  "style": "dist/badi-charts.css",
+  "scripts": {
+    "build": "node build.js"
+  },
+  "keywords": ["chart", "trading", "candlestick", "javascript", "canvas", "finance", "badi-charts"],
+  "author": "salahbadi19",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/salahbadi19/BADI-CHARTS.git"
+  },
+  "homepage": "https://salahbadi19.github.io/BADI-CHARTS/"
+}

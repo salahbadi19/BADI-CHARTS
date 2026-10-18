@@ -22,12 +22,12 @@
 import { DomUtils } from '../utils/DomUtils.js';
 import { ColorPicker } from './ColorPicker.js';
 
-const PALETTE = [
+const _ISM_PALETTE = [
     '#12C4F0', '#3B6CF5', '#16C784', '#EA3943',
     '#FF9800', '#9C27B0', '#FFC107', '#00BCD4', '#FFFFFF'
 ];
 
-const LINE_STYLES = [
+const _ISM_LINE_STYLES = [
     { value: 'solid', label: 'Solid ———' },
     { value: 'dashed', label: 'Dashed – – –' },
     { value: 'dotted', label: 'Dotted ·····' },
@@ -76,7 +76,7 @@ export class IndicatorSettingsModal {
                 <div class="ac-im-row">
                     <label class="ac-im-label">Line Style</label>
                     <select class="ac-im-select" data-field="lineStyle">
-                        ${LINE_STYLES.map(s => `<option value="${s.value}">${s.label}</option>`).join('')}
+                        ${_ISM_LINE_STYLES.map(s => `<option value="${s.value}">${s.label}</option>`).join('')}
                     </select>
                 </div>
                 <div class="ac-im-row ac-im-period-row">
@@ -103,7 +103,7 @@ export class IndicatorSettingsModal {
 
         // Build palette swatches
         const pal = this.element.querySelector('.ac-im-palette');
-        for (const c of PALETTE) {
+        for (const c of _ISM_PALETTE) {
             const sw = DomUtils.el('button', {
                 class: 'ac-sch-swatch ac-im-swatch',
                 style: `background:${c}`,

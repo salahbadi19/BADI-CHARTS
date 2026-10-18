@@ -6,7 +6,7 @@
 import { DrawingBase } from './DrawingBase.js';
 import { MathUtils } from '../utils/MathUtils.js';
 
-const LEVELS = [
+const _FE_LEVELS = [
     { l: 0,    c: '#888' },  { l: 0.618, c: '#16C784' },
     { l: 1,    c: '#888' },  { l: 1.618, c: '#9c27b0' },
     { l: 2.618, c: '#673ab7' }, { l: -0.272, c: '#ff9800' },
@@ -47,7 +47,7 @@ export class FibExtension extends DrawingBase {
         const xRight = vp.width - 70;
         ctx.save();
         ctx.font = "10px 'JetBrains Mono', monospace";
-        for (const fl of LEVELS) {
+        for (const fl of _FE_LEVELS) {
             const price = this.anchors[2].price + range * fl.l;
             const y = vp.priceToY(price);
             ctx.strokeStyle = fl.c;
@@ -77,7 +77,7 @@ export class FibExtension extends DrawingBase {
     hitTest(x, y, vp) {
         if (!this.visible || this.anchors.length < 3) return false;
         const range = this.anchors[1].price - this.anchors[0].price;
-        for (const fl of LEVELS) {
+        for (const fl of _FE_LEVELS) {
             const yLine = vp.priceToY(this.anchors[2].price + range * fl.l);
             if (Math.abs(y - yLine) <= this._hitTolerance && x < vp.width - 70) return true;
         }

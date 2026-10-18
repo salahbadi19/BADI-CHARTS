@@ -4,7 +4,7 @@
 import { DrawingBase } from './DrawingBase.js';
 import { MathUtils } from '../utils/MathUtils.js';
 
-const LEVELS = [0, 0.236, 0.382, 0.5, 0.618, 0.786, 1, 1.618, 2.618];
+const _FC_LEVELS = [0, 0.236, 0.382, 0.5, 0.618, 0.786, 1, 1.618, 2.618];
 
 export class FibChannel extends DrawingBase {
     constructor(opts = {}) {
@@ -35,7 +35,7 @@ export class FibChannel extends DrawingBase {
         const dy = p2.y - p1.y;
         ctx.save();
         ctx.font = "10px 'JetBrains Mono', monospace";
-        for (const fl of LEVELS) {
+        for (const fl of _FC_LEVELS) {
             const y = p1.y + dy * fl;
             ctx.strokeStyle = fl === 0.5 ? '#4caf50' : (fl === 0.618 ? '#16C784' : '#888');
             ctx.lineWidth = fl === 0.618 ? this.lineWidth + 0.5 : this.lineWidth;
@@ -65,7 +65,7 @@ export class FibChannel extends DrawingBase {
         const p1 = this._anchorToScreen(this.anchors[0], vp);
         const p2 = this._anchorToScreen(this.anchors[1], vp);
         const dy = p2.y - p1.y;
-        for (const fl of LEVELS) {
+        for (const fl of _FC_LEVELS) {
             const yLine = p1.y + dy * fl;
             if (Math.abs(y - yLine) <= this._hitTolerance && x < vp.width - 70) return true;
         }
