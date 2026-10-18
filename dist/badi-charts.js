@@ -4424,7 +4424,10 @@ class ChartEngine {
         //         the latest bar. This is ONE strip, not two — the old layout
         //         had two stacked strips (y=8 and y=28) which the user found
         //         redundant.
-        this._drawTopInfoStrip(ctx, dm, theme, canvasW);
+        // Only show the top info strip when the toolbar is visible.
+        if (this._showToolbar) {
+            this._drawTopInfoStrip(ctx, dm, theme, canvasW);
+        }
 
         // === 8. Bottom info bar (cursor candle OHLCV) — REMOVED.
         //         It was the second of the two stacked strips and is no longer
@@ -4586,7 +4589,11 @@ class ChartEngine {
      *   of snapping on/off.
      */
     _drawPaneTitleWithControls(ctx, pane, theme) {
-        const yOffset = pane.isMain ? 28 : 4;
+        // When there's no toolbar (CDN embed mode), push the indicator
+        // list DOWN to y=6 (top of chart). When there IS a toolbar,
+        // use y=28 (below the top info strip).
+        const hasToolbar = this._showToolbar;
+        const yOffset = hasToolbar ? (pane.isMain ? 28 : 4) : (pane.isMain ? 6 : 4);
 
         // For the main pane, show the pane title ("Price") only if there are
         // NO overlay indicators.
@@ -5074,19 +5081,18 @@ class ChartEngine {
         else if (pct > 0.2) timerColor = '#FFC107';
         else timerColor = theme.downColor;
 
-        // Timer badge — positioned JUST OUTSIDE the price scale (to the LEFT
-        // of the axis), below the price tag. This keeps the axis clean while
-        // still showing the countdown near the price.
+        // Timer badge — positioned OUTSIDE the price scale (to the LEFT
+        // of the axis), below the price tag. Moved further left (4px gap)
+        // so it doesn't overlap the axis border line.
         const tagFont = this.priceScale.fontSize;
         ctx.save();
         ctx.font = `bold ${tagFont}px 'JetBrains Mono', monospace`;
         const m = ctx.measureText(timerLabel);
         const timerH = tagFont + 4;
         const timerW = m.width + 8;
-        // Position: just LEFT of the price axis (outside it), below the price tag.
         const tagX = canvasW - priceScaleW;
-        const tx = tagX - timerW - 2;  // left of the axis
-        const ty = absY + 2;            // just below the price tag (same Y + offset down)
+        const tx = tagX - timerW - 4;  // 4px gap from the axis border
+        const ty = absY + tagFont / 2 + 2;  // below the price tag
 
         ctx.fillStyle = timerColor;
         ctx.fillRect(tx, ty, timerW, timerH);
