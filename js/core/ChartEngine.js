@@ -1164,24 +1164,24 @@ export class ChartEngine {
         ctx.fillText(changeTxt, x, y);
         x += ctx.measureText(changeTxt).width + 18;
 
-        // --- Compact OHLCV (only when cursor is active, dimmed) ---
-        if (cursorActive) {
-            ctx.fillStyle = theme.mutedText;
-            ctx.font = "11px 'JetBrains Mono', monospace";
-            const ohlcv = `O ${MathUtils.formatPrice(c.open)}  H ${MathUtils.formatPrice(c.high)}  L ${MathUtils.formatPrice(c.low)}  C ${MathUtils.formatPrice(c.close)}  Vol ${this._fmtVol(c.volume)}`;
-            ctx.fillText(ohlcv, x, y);
-            x += ctx.measureText(ohlcv).width + 18;
+        // --- Compact OHLCV (always shown) ---
+        // When cursor is active, values reflect the bar under the cursor.
+        // When cursor is outside, values reflect the latest bar.
+        ctx.fillStyle = theme.mutedText;
+        ctx.font = "11px 'JetBrains Mono', monospace";
+        const ohlcv = `O ${MathUtils.formatPrice(c.open)}  H ${MathUtils.formatPrice(c.high)}  L ${MathUtils.formatPrice(c.low)}  C ${MathUtils.formatPrice(c.close)}  Vol ${this._fmtVol(c.volume)}`;
+        ctx.fillText(ohlcv, x, y);
+        x += ctx.measureText(ohlcv).width + 18;
 
-            // --- Time label (right-aligned, dimmed) ---
-            const d = new Date(c.time);
-            const pad = (n) => String(n).padStart(2, '0');
-            const timeStr = `${pad(d.getHours())}:${pad(d.getMinutes())}`;
-            const w = ctx.measureText(timeStr).width;
-            const rightX = canvasW - this.priceScale.width - 12 - w;
-            if (rightX > x) {
-                ctx.fillStyle = theme.mutedText;
-                ctx.fillText(timeStr, rightX, y);
-            }
+        // --- Time label (right-aligned, dimmed) ---
+        const d = new Date(c.time);
+        const pad = (n) => String(n).padStart(2, '0');
+        const timeStr = `${pad(d.getHours())}:${pad(d.getMinutes())}`;
+        const w = ctx.measureText(timeStr).width;
+        const rightX = canvasW - this.priceScale.width - 12 - w;
+        if (rightX > x) {
+            ctx.fillStyle = theme.mutedText;
+            ctx.fillText(timeStr, rightX, y);
         }
 
         ctx.restore();
