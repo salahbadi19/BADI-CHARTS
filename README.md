@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="assets/badicharts-logo.svg" alt="BADI-CHARTS" width="400">
+<img src="assets/badicharts-logo-readme.svg" alt="BADI-CHARTS" width="400">
 
 # BADI-CHARTS
 
