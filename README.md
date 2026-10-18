@@ -20,6 +20,7 @@
 | **🚀 Live Demo** | [https://salahbadi19.github.io/BADI-CHARTS/](https://salahbadi19.github.io/BADI-CHARTS/) |
 | **💬 Telegram Channel** | [https://t.me/qxchart](https://t.me/qxchart) |
 | **📦 GitHub Repo** | [https://github.com/salahbadi19/BADI-CHARTS](https://github.com/salahbadi19/BADI-CHARTS) |
+| **🌐 CDN (jsDelivr)** | `https://cdn.jsdelivr.net/gh/salahbadi19/BADI-CHARTS@main/dist/badi-charts.js` |
 
 ---
 
@@ -102,7 +103,62 @@ BADI-CHARTS is a full-featured financial charting library that renders everythin
 
 ## Quick Start
 
-### Option 1: Standalone (open the file)
+### ⚡ Option 1: CDN — One-line embed (easiest)
+
+Just add these 3 lines to any HTML page — no download, no build step:
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- 1. Add the CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/salahbadi19/BADI-CHARTS@main/dist/badi-charts.css">
+</head>
+<body>
+  <!-- 2. Add a container -->
+  <div id="chart-root" style="width:100vw;height:100vh"></div>
+
+  <!-- 3. Add the JS — chart auto-initializes! -->
+  <script src="https://cdn.jsdelivr.net/gh/salahbadi19/BADI-CHARTS@main/dist/badi-charts.js"></script>
+</body>
+</html>
+```
+
+That's it! The chart auto-initializes with demo data when the page loads.
+
+### 🔧 Option 2: CDN with custom options
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/salahbadi19/BADI-CHARTS@main/dist/badi-charts.css">
+</head>
+<body>
+  <div id="my-chart" style="width:100%;height:500px"></div>
+
+  <script src="https://cdn.jsdelivr.net/gh/salahbadi19/BADI-CHARTS@main/dist/badi-charts.js"></script>
+  <script>
+    // Create chart manually with custom options
+    const chart = BadiCharts.create('#my-chart', {
+      symbol: 'ETHUSDT',
+      theme: 'dark'
+    });
+
+    // Add an indicator
+    chart.indicatorManager.add('SMA', { period: 20, color: '#12C4F0' });
+
+    // Change chart type
+    chart.setChartType('heikinAshi');
+
+    // Start live feed
+    chart.toggleLive();
+  </script>
+</body>
+</html>
+```
+
+### 📦 Option 3: Download and run locally
 
 ```bash
 git clone https://github.com/salahbadi19/BADI-CHARTS.git
@@ -111,47 +167,34 @@ python3 -m http.server 8000
 # Open http://localhost:8000 in your browser
 ```
 
-### Option 2: Embed in your web page
+### 🧩 Option 4: Use as ES modules (advanced)
 
 ```html
-<!DOCTYPE html>
-<html>
-<head>
-  <link rel="stylesheet" href="css/main.css">
-  <link rel="stylesheet" href="css/chart.css">
-  <link rel="stylesheet" href="css/toolbar.css">
-  <link rel="stylesheet" href="css/themes.css">
-  <link rel="stylesheet" href="css/colorpicker.css">
-  <link rel="stylesheet" href="css/indicator-modal.css">
-  <link rel="stylesheet" href="css/chart-settings-modal.css">
-</head>
-<body>
-  <div id="chart-root" style="width:100vw;height:100vh"></div>
-  <script type="module">
-    import { ChartEngine } from './js/core/ChartEngine.js';
-    import { drawingToolRegistry } from './js/drawing/DrawingToolRegistry.js';
-    import { BUILT_IN_TOOLS } from './js/drawing/DrawingManager.js';
+<div id="chart-root" style="width:100vw;height:100vh"></div>
+<script type="module">
+  import { ChartEngine } from './js/core/ChartEngine.js';
+  import { drawingToolRegistry } from './js/drawing/DrawingToolRegistry.js';
+  import { BUILT_IN_TOOLS } from './js/drawing/DrawingManager.js';
 
-    // Register built-in drawing tools
-    drawingToolRegistry.registerAll(BUILT_IN_TOOLS);
+  drawingToolRegistry.registerAll(BUILT_IN_TOOLS);
 
-    // Create the chart
-    const chart = new ChartEngine(document.getElementById('chart-root'), {
-      symbol: 'BTCUSDT',
-      theme: 'dark'
-    });
-    chart.init();
-
-    // Expose globally
-    window.BadiCharts = chart;
-  </script>
-</body>
-</html>
+  const chart = new ChartEngine(document.getElementById('chart-root'), {
+    symbol: 'BTCUSDT',
+    theme: 'dark'
+  });
+  chart.init();
+  window.BadiCharts = chart;
+</script>
 ```
 
-### Option 3: Use the widget file
+### CDN URLs
 
-Open `badicharts-widget.html` directly in a browser — it auto-initializes with demo data.
+| File | CDN URL |
+|------|---------|
+| **JavaScript** | `https://cdn.jsdelivr.net/gh/salahbadi19/BADI-CHARTS@main/dist/badi-charts.js` |
+| **CSS** | `https://cdn.jsdelivr.net/gh/salahbadi19/BADI-CHARTS@main/dist/badi-charts.css` |
+
+> 💡 **Tip:** Pin to a specific version by replacing `@main` with a tag (e.g. `@v1.0.0`) once you create a release.
 
 ---
 
