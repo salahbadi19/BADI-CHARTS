@@ -1,0 +1,154 @@
+/* ColorPicker.css — HSL color picker card */
+
+.ac-color-picker {
+    position: absolute;
+    width: 280px;
+    background: rgba(19, 23, 34, 0.98);
+    border: 1px solid var(--ac-border, rgba(255,255,255,0.08));
+    border-radius: 10px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+    z-index: 100;
+    pointer-events: auto;
+    font-family: var(--ac-font, 'Inter', sans-serif);
+    font-size: 12px;
+    color: var(--ac-text, #cfd3dc);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    direction: ltr;
+}
+
+/* Header */
+.ac-cp-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--ac-border, rgba(255,255,255,0.06));
+    background: rgba(0, 0, 0, 0.2);
+}
+.ac-cp-title {
+    font-weight: 600;
+    font-size: 11px;
+    color: var(--ac-muted, #9ba1ab);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    flex-shrink: 0;
+}
+.ac-cp-hex {
+    flex: 1;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--ac-border, rgba(255,255,255,0.08));
+    border-radius: 4px;
+    padding: 4px 8px;
+    color: var(--ac-text, #cfd3dc);
+    font-family: var(--ac-mono, 'JetBrains Mono', monospace);
+    font-size: 12px;
+    text-align: center;
+    outline: none;
+    min-width: 0;
+}
+.ac-cp-hex:focus { border-color: var(--ac-accent, #12C4F0); }
+.ac-cp-swatch {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    border: 1.5px solid rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    padding: 0;
+    flex-shrink: 0;
+}
+
+/* Body: hue bar + SL square */
+.ac-cp-body {
+    display: flex;
+    gap: 10px;
+    padding: 12px;
+}
+.ac-cp-hue {
+    width: 18px;
+    height: 180px;
+    position: relative;
+    cursor: pointer;
+    flex-shrink: 0;
+    border-radius: 9px;
+    overflow: hidden;
+    touch-action: none;
+}
+.ac-cp-hue-track {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom,
+        hsl(0, 100%, 50%),
+        hsl(60, 100%, 50%),
+        hsl(120, 100%, 50%),
+        hsl(180, 100%, 50%),
+        hsl(240, 100%, 50%),
+        hsl(300, 100%, 50%),
+        hsl(360, 100%, 50%));
+}
+.ac-cp-hue-thumb {
+    position: absolute;
+    left: -3px;
+    right: -3px;
+    height: 12px;
+    border: 2px solid #fff;
+    border-radius: 4px;
+    background: transparent;
+    box-shadow: 0 0 4px rgba(0,0,0,0.6);
+    pointer-events: none;
+}
+.ac-cp-sl {
+    flex: 1;
+    height: 180px;
+    position: relative;
+    cursor: pointer;
+    border-radius: 6px;
+    overflow: hidden;
+    touch-action: none;
+    background: linear-gradient(to top, #000, transparent),
+                linear-gradient(to right, #fff, hsl(180, 100%, 50%));
+}
+.ac-cp-sl-cursor {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 4px rgba(0,0,0,0.6);
+    pointer-events: none;
+}
+
+/* Footer */
+.ac-cp-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    padding: 10px 12px;
+    border-top: 1px solid var(--ac-border, rgba(255,255,255,0.06));
+    background: rgba(0, 0, 0, 0.2);
+}
+.ac-cp-btn {
+    padding: 5px 14px;
+    border-radius: 5px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    background: var(--ac-surface, #0a0d12);
+    color: var(--ac-text, #cfd3dc);
+    border: 1px solid var(--ac-border, rgba(255,255,255,0.08));
+    transition: background 0.12s;
+}
+.ac-cp-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+.ac-cp-done {
+    background: var(--ac-accent, #12C4F0);
+    color: #fff;
+    border-color: var(--ac-accent, #12C4F0);
+}
+.ac-cp-done:hover {
+    background: #0EA8D8;
+}

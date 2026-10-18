@@ -1,0 +1,177 @@
+/* main.css - Base reset and global styles */
+
+:root {
+    --ac-up: #16C784;
+    --ac-down: #EA3943;
+    --ac-accent: #12C4F0;
+    --ac-bg: #0e1117;
+    --ac-surface: #0a0d12;
+    --ac-surface-2: #131722;
+    --ac-text: #cfd3dc;
+    --ac-muted: #6e7681;
+    --ac-border: rgba(255, 255, 255, 0.06);
+    --ac-toolbar-h: 44px;
+    --ac-statusbar-h: 24px;
+    --ac-font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --ac-mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: var(--ac-bg);
+    color: var(--ac-text);
+    font-family: var(--ac-font);
+    font-size: 13px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+#chart-root {
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.ac-root {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: var(--ac-bg);
+}
+
+.ac-toolbar-container {
+    flex: 0 0 auto;
+    height: var(--ac-toolbar-h);
+}
+
+.ac-chart-area {
+    flex: 1 1 auto;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Background layer (image/video/SVG behind the chart) */
+.ac-bg-layer {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.ac-bg-layer img,
+.ac-bg-layer video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.ac-bg-layer svg {
+    max-width: 60%;
+    max-height: 60%;
+    width: auto;
+    height: auto;
+}
+
+
+/* Pane container sits ABOVE the background layer */
+.ac-pane-container {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 1;
+}
+
+/* Shared canvas — fills the entire paneContainer, sits BELOW the pane wrappers */
+.ac-shared-canvas-container {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 0;
+}
+.ac-shared-canvas-container canvas {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.ac-overlay-container {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.ac-status-container {
+    flex: 0 0 auto;
+    height: var(--ac-statusbar-h);
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    background: none;
+    color: inherit;
+}
+button:focus-visible {
+    outline: 2px solid var(--ac-accent);
+    outline-offset: 1px;
+}
+select { font-family: inherit; }
+
+.ac-canvas-container, .ac-toolbar, .ac-statusbar {
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* Pane styles — panes are transparent divs that define regions on the shared canvas */
+.ac-pane {
+    flex: 0 0 auto;
+    position: relative;
+    background: transparent;
+    overflow: hidden;
+    z-index: 1; /* above the shared canvas */
+    pointer-events: none; /* let events pass through to the canvas */
+}
+.ac-pane-main {
+    flex: 1 1 auto;
+}
+.ac-pane-timeaxis {
+    flex: 0 0 28px !important;
+    flex-grow: 0 !important;
+}
+.ac-pane-resize-handle {
+    flex: 0 0 4px;
+    background: transparent;
+    cursor: ns-resize;
+    position: relative;
+    z-index: 5; /* above canvas, captures pointer events */
+    pointer-events: auto;
+}
+.ac-pane-resize-handle::before {
+    content: '';
+    position: absolute;
+    top: 1px; left: 0; right: 0;
+    height: 2px;
+    background: var(--ac-border);
+    transition: background 0.15s;
+}
+.ac-pane-resize-handle:hover::before,
+.ac-pane-resize-handle:active::before {
+    background: var(--ac-accent);
+    height: 3px;
+    top: 0;
+}

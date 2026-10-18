@@ -1,0 +1,150 @@
+/* toolbar.css - Top toolbar with tools and controls */
+
+.ac-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: var(--ac-toolbar-h);
+    padding: 0 8px;
+    background: var(--ac-surface);
+    border-bottom: 1px solid var(--ac-border);
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,0.1) transparent;
+}
+.ac-toolbar::-webkit-scrollbar { height: 4px; }
+.ac-toolbar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+
+.ac-toolbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding-right: 8px;
+    border-right: 1px solid var(--ac-border);
+    margin-right: 4px;
+    flex-shrink: 0;
+}
+.ac-brand-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    background: linear-gradient(135deg, #12C4F0, #00bcd4);
+    color: white;
+    font-weight: 700;
+    font-size: 12px;
+    border-radius: 6px;
+    letter-spacing: -0.5px;
+}
+.ac-brand-name {
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--ac-text);
+    letter-spacing: -0.2px;
+}
+
+.ac-symbol-select {
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--ac-text);
+    border: 1px solid var(--ac-border);
+    border-radius: 6px;
+    padding: 5px 10px;
+    font-family: var(--ac-font);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    flex-shrink: 0;
+    outline: none;
+}
+.ac-symbol-select:hover { background: rgba(255, 255, 255, 0.08); }
+
+.ac-toolbar-group {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    padding: 0 6px;
+    border-right: 1px solid var(--ac-border);
+    flex-shrink: 0;
+}
+.ac-toolbar-group:last-child { border-right: none; }
+.ac-toolbar-right {
+    margin-left: auto;
+    border-right: none;
+    border-left: 1px solid var(--ac-border);
+    padding-left: 6px;
+    padding-right: 0;
+}
+
+.ac-toolbar-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    min-width: 32px;
+    height: 30px;
+    padding: 0 10px;
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--ac-text);
+    border: 1px solid transparent;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.12s ease;
+    user-select: none;
+    flex-shrink: 0;
+}
+.ac-toolbar-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--ac-border);
+}
+.ac-toolbar-btn:active { transform: scale(0.96); }
+.ac-toolbar-btn.active {
+    background: var(--ac-accent);
+    color: white;
+    border-color: var(--ac-accent);
+}
+.ac-toolbar-btn.active:hover { background: #1e4dd6; }
+.ac-toolbar-btn-sm {
+    min-width: 36px;
+    font-size: 11px;
+    font-weight: 600;
+    font-family: var(--ac-mono);
+    padding: 0 6px;
+}
+.ac-toolbar-btn-toggle { color: var(--ac-muted); }
+.ac-toolbar-btn-toggle.active {
+    background: var(--ac-up);
+    color: white;
+    border-color: var(--ac-up);
+    animation: pulse-live 2s ease-in-out infinite;
+}
+@keyframes pulse-live {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(22, 199, 132, 0.5); }
+    50% { box-shadow: 0 0 0 4px rgba(22, 199, 132, 0); }
+}
+
+.ac-caret { font-size: 9px; opacity: 0.6; }
+
+/* Mobile responsive — TradingView-style compact toolbar */
+@media (max-width: 768px) {
+    .ac-toolbar { gap: 2px; padding: 0 4px; flex-wrap: nowrap; overflow-x: auto; }
+    .ac-toolbar::-webkit-scrollbar { display: none; }
+    .ac-brand-name { display: none; }
+    .ac-toolbar-group { padding: 0 2px; gap: 1px; }
+    .ac-toolbar-btn { min-width: 28px; height: 32px; padding: 0 6px; font-size: 13px; }
+    .ac-toolbar-btn-sm { min-width: 28px; padding: 0 4px; font-size: 10px; }
+    .ac-symbol-select { padding: 4px 6px; font-size: 11px; max-width: 90px; }
+    .ac-bg-opacity { width: 40px !important; }
+    .ac-toolbar-right { gap: 2px; }
+}
+@media (max-width: 480px) {
+    .ac-toolbar-brand { padding-right: 2px; margin-right: 2px; }
+    .ac-brand-mark { width: 24px; height: 24px; font-size: 11px; }
+    .ac-toolbar-btn { min-width: 26px; height: 30px; padding: 0 4px; font-size: 12px; }
+    .ac-toolbar-btn-sm { min-width: 26px; padding: 0 3px; font-size: 9px; }
+    .ac-symbol-select { max-width: 75px; font-size: 10px; }
+    .ac-bg-opacity { display: none; }
+}

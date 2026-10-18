@@ -1,0 +1,38 @@
+/* themes.css - Light theme overrides */
+
+.ac-root.ac-theme-light {
+    --ac-bg: #ffffff;
+    --ac-surface: #f8f9fd;
+    --ac-text: #1e222d;
+    --ac-muted: #787b86;
+    --ac-border: rgba(0, 0, 0, 0.08);
+}
+
+.ac-root.ac-theme-light .ac-tooltip {
+    background: rgba(255, 255, 255, 0.96);
+    border-color: rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.ac-root.ac-theme-light .ac-legend {
+    background: rgba(255, 255, 255, 0.7);
+}
+
+.ac-root.ac-theme-light .ac-symbol-select {
+    background: rgba(0, 0, 0, 0.03);
+}
+
+.ac-root.ac-theme-light .ac-toolbar-btn {
+    background: rgba(0, 0, 0, 0.04);
+}
+
+.ac-root.ac-theme-light .ac-toolbar-btn:hover {
+    background: rgba(0, 0, 0, 0.08);
+}
+
+/* Make sure the document background also flips */
+[data-theme="light"] body,
+.ac-root.ac-theme-light {
+    background: #ffffff;
+    color: #1e222d;
+}

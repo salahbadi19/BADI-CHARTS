@@ -1,0 +1,122 @@
+<!--
+  BadiCharts — Embeddable Trading Chart Widget
+  ============================================
+
+  This is a SINGLE-FILE embeddable version of BadiCharts. Copy this entire
+  file (or just the <script> + <style> blocks) into your HTML page to get
+  a fully functional trading chart with:
+
+  - 33+ chart types (candles, hollow, Heikin-Ashi, Kagi, etc.)
+  - Drawing tools (trendline, rectangle, Fibonacci, arrows, etc.)
+  - Indicators (SMA, EMA, Volume Profile, etc.)
+  - HSL color picker
+  - Background image/video/SVG support
+  - Countdown timer
+  - Watermark
+
+  USAGE (as a library):
+  ---------------------
+    <div id="my-chart"></div>
+    <script src="badicharts-widget.js"></script>
+    <script>
+      const chart = BadiCharts.create('#my-chart', { symbol: 'BTCUSDT', theme: 'dark' });
+      chart.init();
+    </script>
+
+  USAGE (standalone):
+  -------------------
+  Just open this file in a browser — it auto-initializes with demo data.
+-->
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BadiCharts — Embeddable Chart</title>
+<style>
+/* ===== BadiCharts Minimal CSS (inline for portability) ===== */
+:root {
+  --ac-up: #16C784; --ac-down: #EA3943; --ac-accent: #12C4F0;
+  --ac-bg: #0e1117; --ac-surface: #0a0d12; --ac-surface-2: #131722;
+  --ac-text: #cfd3dc; --ac-muted: #6e7681; --ac-border: rgba(255,255,255,0.06);
+  --ac-toolbar-h: 44px; --ac-statusbar-h: 24px;
+  --ac-font: 'Inter', sans-serif; --ac-mono: 'JetBrains Mono', monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{width:100%;height:100%;overflow:hidden;background:var(--ac-bg);color:var(--ac-text);font-family:var(--ac-font);font-size:13px;-webkit-font-smoothing:antialiased}
+#chart-root{width:100vw;height:100vh;display:flex;flex-direction:column;overflow:hidden}
+.ac-root{display:flex;flex-direction:column;width:100%;height:100%;overflow:hidden;background:var(--ac-bg)}
+.ac-toolbar-container{flex:0 0 auto;height:var(--ac-toolbar-h)}
+.ac-chart-area{flex:1 1 auto;position:relative;overflow:hidden}
+.ac-pane-container{position:absolute;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;overflow:hidden}
+.ac-shared-canvas-container{position:absolute;top:0;left:0;right:0;bottom:0;z-index:0}
+.ac-shared-canvas-container canvas{position:absolute;top:0;left:0;width:100%;height:100%}
+.ac-overlay-container{position:absolute;top:0;left:0;right:0;bottom:0;pointer-events:none;overflow:hidden}
+.ac-status-container{flex:0 0 auto;height:var(--ac-statusbar-h)}
+.ac-canvas-container,.ac-toolbar,.ac-statusbar{user-select:none;-webkit-user-select:none}
+.ac-pane{flex:0 0 auto;position:relative;background:transparent;overflow:hidden;z-index:1;pointer-events:none}
+.ac-pane-main{flex:1 1 auto}
+.ac-pane-timeaxis{flex:0 0 28px!important;flex-grow:0!important}
+.ac-pane-resize-handle{flex:0 0 4px;background:transparent;cursor:ns-resize;position:relative;z-index:5;pointer-events:auto}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+.ac-bg-layer{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.ac-bg-layer img,.ac-bg-layer video{width:100%;height:100%;object-fit:cover}
+.ac-bg-layer svg{max-width:60%;max-height:60%}
+</style>
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/chart.css">
+<link rel="stylesheet" href="css/toolbar.css">
+<link rel="stylesheet" href="css/themes.css">
+<link rel="stylesheet" href="css/colorpicker.css">
+<link rel="stylesheet" href="css/indicator-modal.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+<div id="chart-root"></div>
+
+<!-- BadiCharts — all JS as ES modules -->
+<script type="module">
+import { ChartEngine } from './js/core/ChartEngine.js';
+import { drawingToolRegistry } from './js/drawing/DrawingToolRegistry.js';
+import { BUILT_IN_TOOLS } from './js/drawing/DrawingManager.js';
+
+// Register drawing tools
+drawingToolRegistry.registerAll(BUILT_IN_TOOLS);
+
+// Create the chart
+const container = document.getElementById('chart-root');
+const engine = new ChartEngine(container, { symbol: 'BTCUSDT', theme: 'dark' });
+engine.init();
+
+// Expose globally for programmatic access
+window.BadiCharts = {
+  engine,
+  // Create a new chart in a different container
+  create(selector, opts) {
+    const el = typeof selector === 'string' ? document.querySelector(selector) : selector;
+    const e = new ChartEngine(el, opts || {});
+    e.init();
+    return e;
+  },
+  // Register a custom drawing tool
+  registerTool(id, def) { drawingToolRegistry.register(id, def); },
+  // Set chart background (image/video/SVG)
+  setBackground(opts) { engine.background.set(opts); },
+  clearBackground() { engine.background.clear(); },
+  // Chart type control
+  setChartType(type) { engine.setChartType(type); },
+  // Indicator control
+  addIndicator(name, opts) { engine.indicatorManager.add(name, opts); },
+  removeIndicator(id) { engine.indicatorManager.remove(id); },
+  // Theme
+  toggleTheme() { engine.toggleTheme(); },
+  // Live feed
+  toggleLive() { engine.toggleLive(); }
+};
+
+console.log('%cBadiCharts Widget Ready', 'font-size:14px;font-weight:bold;color:#12C4F0');
+console.log('Access via window.BadiCharts');
+</script>
+</body>
+</html>
