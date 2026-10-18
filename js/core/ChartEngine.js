@@ -315,17 +315,10 @@ export class ChartEngine {
         //        time axis so its time label is visible on top ===
         this._drawCrosshair(ctx, regions, dm, theme, priceScaleW, canvasW, canvasH);
 
-        // === 7. Top info strip — TradingView-style single line ===
-        //         Shows: SYMBOL  price  ▲/▼ change (changePct%)
-        //         If the cursor is inside the chart, the displayed values
-        //         reflect the candle under the cursor; otherwise they show
-        //         the latest bar. This is ONE strip, not two — the old layout
-        //         had two stacked strips (y=8 and y=28) which the user found
-        //         redundant.
-        // Only show the top info strip when the toolbar is visible.
-        if (this._showToolbar) {
-            this._drawTopInfoStrip(ctx, dm, theme, canvasW);
-        }
+        // === 7. Top info strip — always show (SYMBOL + price + change%).
+        //   When toolbar is visible: y=8 (below toolbar).
+        //   When no toolbar (CDN embed): y=6 (top of chart).
+        this._drawTopInfoStrip(ctx, dm, theme, canvasW);
 
         // === 8. Bottom info bar (cursor candle OHLCV) — REMOVED.
         //         It was the second of the two stacked strips and is no longer
@@ -491,7 +484,9 @@ export class ChartEngine {
         // list DOWN to y=6 (top of chart). When there IS a toolbar,
         // use y=28 (below the top info strip).
         const hasToolbar = this._showToolbar;
-        const yOffset = hasToolbar ? (pane.isMain ? 28 : 4) : (pane.isMain ? 6 : 4);
+        // When no toolbar, push indicators below the top info strip (y=26).
+        // When toolbar exists, y=28 (below toolbar).
+        const yOffset = hasToolbar ? (pane.isMain ? 28 : 4) : (pane.isMain ? 26 : 4);
 
         // For the main pane, show the pane title ("Price") only if there are
         // NO overlay indicators.
@@ -1146,7 +1141,8 @@ export class ChartEngine {
         ctx.save();
         ctx.textBaseline = 'top';
         ctx.textAlign = 'left';
-        const y = 8;
+        // Position: y=8 when toolbar is visible, y=6 when no toolbar.
+        const y = this._showToolbar ? 8 : 6;
         let x = 12;
 
         // --- Symbol ---
