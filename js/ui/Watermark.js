@@ -97,7 +97,7 @@ export class Watermark {
             left: ${this.paddingLeft}px;
             width: ${this.width}px;
             pointer-events: none;
-            z-index: 0;
+            z-index: 2;
             opacity: ${this.opacity};
             transition: opacity 0.3s ease;
             visibility: hidden;
